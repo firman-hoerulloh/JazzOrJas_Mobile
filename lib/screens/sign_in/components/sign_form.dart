@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:shop_app/components/firebase_auth_services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shop_app/screens/init_screen.dart';
 import '../../../components/custom_surfix_icon.dart';
 import '../../../components/form_error.dart';
 import '../../../constants.dart';
@@ -16,6 +18,7 @@ class SignForm extends StatefulWidget {
 
 class _SignFormState extends State<SignForm> {
   final _formKey = GlobalKey<FormState>();
+  final FirebaseAuthServices _auth = FirebaseAuthServices();
   String? email;
   String? password;
   bool? remember = false;
@@ -136,7 +139,7 @@ class _SignFormState extends State<SignForm> {
                 _formKey.currentState!.save();
                 // if all are valid then go to success screen
                 KeyboardUtil.hideKeyboard(context);
-                Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+                _signIn(email,password);
               }
             },
             child: const Text("Continue"),
@@ -144,5 +147,37 @@ class _SignFormState extends State<SignForm> {
         ],
       ),
     );
+  }
+
+  void _signIn(String? email,String? password) async {
+    User? user = await _auth.signInWithEmailAndPassword(email ?? "", password ?? "");
+
+    if (user != null){
+      Navigator.pushNamed(context, InitScreen.routeName);
+    }else{
+      showDialog(
+      context: context,
+        builder: (BuildContext context) {
+          // return object of type Dialog
+          return AlertDialog(
+            title: Text(
+                    'Password or email is wrong',
+                    textAlign: TextAlign.center, // Center align the text
+                  ),
+            
+            actions: <Widget>[
+              // usually buttons at the bottom of the dialog
+              new ElevatedButton(
+                child: new Text("Close"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
   }
 }

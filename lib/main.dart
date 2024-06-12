@@ -1,10 +1,19 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/screens/splash/splash_screen.dart';
 
 import 'routes.dart';
 import 'theme.dart';
 
-void main() {
+Future main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp(options: FirebaseOptions(
+  apiKey: "AIzaSyBB0dBQeTFxVBgcrm10gktrQc5aU_6mjX0", 
+  appId: "1:931033159054:android:42cd80b8ceec5e390cc0df", 
+  messagingSenderId: "931033159054", 
+  projectId: "jazzorjas-4a781")
+  );
   runApp(const MyApp());
 }
 

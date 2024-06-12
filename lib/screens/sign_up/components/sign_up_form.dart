@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:shop_app/components/firebase_auth_services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../../../components/custom_surfix_icon.dart';
 import '../../../components/form_error.dart';
 import '../../../constants.dart';
@@ -14,6 +15,8 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
+  final FirebaseAuthServices _auth = FirebaseAuthServices();
+  
   String? email;
   String? password;
   String? conform_password;
@@ -140,8 +143,12 @@ class _SignUpFormState extends State<SignUpForm> {
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
+                _signUp(email,password);
+                
+
+                
                 // if all are valid then go to success screen
-                Navigator.pushNamed(context, CompleteProfileScreen.routeName);
+                //Navigator.pushNamed(context, CompleteProfileScreen.routeName);
               }
             },
             child: const Text("Continue"),
@@ -149,5 +156,37 @@ class _SignUpFormState extends State<SignUpForm> {
         ],
       ),
     );
+  }
+
+  void _signUp(String? email,String? password) async {
+    User? user = await _auth.signUpWithEmailAndPassword(email ?? "", password ?? "");
+
+    if (user != null){
+      Navigator.pushNamed(context, CompleteProfileScreen.routeName);
+    }else{
+      showDialog(
+      context: context,
+        builder: (BuildContext context) {
+          // return object of type Dialog
+          return AlertDialog(
+            title: Text(
+                    'Email already exist',
+                    textAlign: TextAlign.center, // Center align the text
+                  ),
+            
+            actions: <Widget>[
+              // usually buttons at the bottom of the dialog
+              new ElevatedButton(
+                child: new Text("Close"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
   }
 }
