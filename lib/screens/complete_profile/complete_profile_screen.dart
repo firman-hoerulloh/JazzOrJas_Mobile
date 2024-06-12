@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shop_app/components/toast.dart';
 
 import '../../constants.dart';
 import 'components/complete_profile_form.dart';
@@ -45,4 +48,7 @@ class CompleteProfileScreen extends StatelessWidget {
       ),
     );
   }
+
+  
+
 }

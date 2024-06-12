@@ -9,12 +9,13 @@ class SocalCard extends StatelessWidget {
   }) : super(key: key);
 
   final String? icon;
-  final Function? press;
+  final void Function()? press;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: press as void Function()?,
+      onTap: press,
+      
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 10),
         padding: const EdgeInsets.all(12),

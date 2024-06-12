@@ -1,5 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:shop_app/components/toast.dart';
 import '../../../components/custom_surfix_icon.dart';
 import '../../../components/form_error.dart';
 import '../../../components/no_account_text.dart';
@@ -26,6 +27,9 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
             keyboardType: TextInputType.emailAddress,
             onSaved: (newValue) => email = newValue,
             onChanged: (value) {
+              setState(() {
+                email = value;
+              });
               if (value.isNotEmpty && errors.contains(kEmailNullError)) {
                 setState(() {
                   errors.remove(kEmailNullError);
@@ -66,7 +70,10 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
-                // Do what you want to do
+                _PasswordReset(email);
+                // User? user = FirebaseAuth.instance.currentUser;
+                // showToast(message: user?.uid ?? "");
+                
               }
             },
             child: const Text("Continue"),
@@ -76,5 +83,13 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
         ],
       ),
     );
+  }
+  Future _PasswordReset(String? email) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email ?? "");
+      showToast(message: "Check your email to reset password");
+    }on FirebaseAuthException catch (e){
+      showToast(message: e.message.toString());
+    }
   }
 }

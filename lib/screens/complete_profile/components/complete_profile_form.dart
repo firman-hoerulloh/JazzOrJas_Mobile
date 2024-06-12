@@ -1,4 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shop_app/components/toast.dart';
+import 'package:shop_app/screens/init_screen.dart';
 
 import '../../../components/custom_surfix_icon.dart';
 import '../../../components/form_error.dart';
@@ -45,6 +49,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           TextFormField(
             onSaved: (newValue) => firstName = newValue,
             onChanged: (value) {
+              
               if (value.isNotEmpty) {
                 removeError(error: kNamelNullError);
               }
@@ -135,7 +140,9 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
-                Navigator.pushNamed(context, OtpScreen.routeName);
+                Navigator.pushNamed(context, InitScreen.routeName);
+                //addUserInfo(address,firstName,lastName,phoneNumber);
+                
               }
             },
             child: const Text("Continue"),
@@ -144,4 +151,19 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       ),
     );
   }
+
+  Future addUserInfo(String? address,String? firstName,String? lastName,String? phoneNumber) async {
+    try {
+      await FirebaseFirestore.instance.collection('users').add({
+        'address':address.toString(),
+        'name':firstName.toString() + lastName.toString(),
+        'phone':int.parse(phoneNumber.toString())
+      });
+      showToast(message: "User info has been added");
+      Navigator.pushNamed(context, InitScreen.routeName);
+    }on FirebaseAuthException catch (e){
+      showToast(message: e.message.toString());
+    }
+  }
+
 }

@@ -7,7 +7,9 @@ import '../../../components/form_error.dart';
 import '../../../constants.dart';
 import '../../../helper/keyboard.dart';
 import '../../forgot_password/forgot_password_screen.dart';
-import '../../login_success/login_success_screen.dart';
+import 'package:shop_app/components/toast.dart';
+import 'package:shop_app/components/socal_card.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class SignForm extends StatefulWidget {
   const SignForm({super.key});
@@ -19,6 +21,7 @@ class SignForm extends StatefulWidget {
 class _SignFormState extends State<SignForm> {
   final _formKey = GlobalKey<FormState>();
   final FirebaseAuthServices _auth = FirebaseAuthServices();
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   String? email;
   String? password;
   bool? remember = false;
@@ -144,6 +147,19 @@ class _SignFormState extends State<SignForm> {
             },
             child: const Text("Continue"),
           ),
+          
+          const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SocalCard(
+                        icon: "assets/icons/google-icon.svg",
+                        press: (){signInWithGoogle();},
+                      ),
+                    ],
+                  ),
+          const SizedBox(height: 16),
+          const SizedBox(height: 20),
         ],
       ),
     );
@@ -154,30 +170,34 @@ class _SignFormState extends State<SignForm> {
 
     if (user != null){
       Navigator.pushNamed(context, InitScreen.routeName);
-    }else{
-      showDialog(
-      context: context,
-        builder: (BuildContext context) {
-          // return object of type Dialog
-          return AlertDialog(
-            title: Text(
-                    'Password or email is wrong',
-                    textAlign: TextAlign.center, // Center align the text
-                  ),
-            
-            actions: <Widget>[
-              // usually buttons at the bottom of the dialog
-              new ElevatedButton(
-                child: new Text("Close"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
     }
 
   }
+
+  void signInWithGoogle() async {
+
+    final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+    try {
+
+      final GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
+
+      if(googleSignInAccount != null ){
+        final GoogleSignInAuthentication googleSignInAuthentication = await
+        googleSignInAccount.authentication;
+
+        final AuthCredential credential = GoogleAuthProvider.credential(
+          idToken: googleSignInAuthentication.idToken,
+          accessToken: googleSignInAuthentication.accessToken,
+        );
+
+        await _firebaseAuth.signInWithCredential(credential);
+        Navigator.pushNamed(context, InitScreen.routeName);
+      }
+
+    }catch(e) {
+      showToast(message: "some error occured $e");
+    }
+  }
+  
 }

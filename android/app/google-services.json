@@ -12,7 +12,20 @@
           "package_name": "com.ecommerce.jazzorjas"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "931033159054-mgiqngm2nl63b0vjt2l7ir4ji3ustoul.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ecommerce.jazzorjas",
+            "certificate_hash": "cac6b86ca6ddd354eb08d872476f7c6469b7ec66"
+          }
+        },
+        {
+          "client_id": "931033159054-bjvv8b83crenh5cq2u6c6rffuv064sjh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDY7LzriWsQdYXDtrMt_d2vvAnM5b797HI"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "931033159054-bjvv8b83crenh5cq2u6c6rffuv064sjh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

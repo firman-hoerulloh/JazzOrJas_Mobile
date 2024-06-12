@@ -163,29 +163,6 @@ class _SignUpFormState extends State<SignUpForm> {
 
     if (user != null){
       Navigator.pushNamed(context, CompleteProfileScreen.routeName);
-    }else{
-      showDialog(
-      context: context,
-        builder: (BuildContext context) {
-          // return object of type Dialog
-          return AlertDialog(
-            title: Text(
-                    'Email already exist',
-                    textAlign: TextAlign.center, // Center align the text
-                  ),
-            
-            actions: <Widget>[
-              // usually buttons at the bottom of the dialog
-              new ElevatedButton(
-                child: new Text("Close"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
     }
 
   }
