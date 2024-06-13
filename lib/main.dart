@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/screens/splash/splash_screen.dart';
-
+import 'package:shop_app/models/Product.dart';
 import 'routes.dart';
 import 'theme.dart';
 
@@ -14,6 +14,7 @@ Future main() async{
   messagingSenderId: "931033159054", 
   projectId: "jazzorjas-4a781")
   );
+  
   runApp(const MyApp());
 }
 

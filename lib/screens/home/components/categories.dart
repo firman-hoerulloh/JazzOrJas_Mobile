@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shop_app/models/Product.dart';
+import 'package:shop_app/screens/home/components/crud_form.dart';
+import 'package:shop_app/components/toast.dart';
 
 class Categories extends StatelessWidget {
   const Categories({super.key});
+   
 
   @override
   Widget build(BuildContext context) {
@@ -18,17 +22,28 @@ class Categories extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: List.generate(
-          categories.length,
-          (index) => CategoryCard(
-            icon: categories[index]["icon"],
-            text: categories[index]["text"],
+        children: [
+          CategoryCard(
+            icon: "assets/icons/Flash Icon.svg",
+            text: "Create",
+            
+            press: () {showCustomDialog(context);},
+          ),
+          CategoryCard(
+            icon: "assets/icons/Flash Icon.svg",
+            text: "Delete",
+            press: () {getData();},
+          ),
+          CategoryCard(
+            icon: "assets/icons/Flash Icon.svg",
+            text: "Update",
             press: () {},
           ),
-        ),
-      ),
+        ]
+    )
     );
   }
+  
 }
 
 class CategoryCard extends StatelessWidget {
@@ -65,3 +80,5 @@ class CategoryCard extends StatelessWidget {
     );
   }
 }
+
+

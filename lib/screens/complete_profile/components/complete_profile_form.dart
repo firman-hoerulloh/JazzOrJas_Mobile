@@ -7,7 +7,7 @@ import 'package:shop_app/screens/init_screen.dart';
 import '../../../components/custom_surfix_icon.dart';
 import '../../../components/form_error.dart';
 import '../../../constants.dart';
-import '../../otp/otp_screen.dart';
+
 
 class CompleteProfileForm extends StatefulWidget {
   const CompleteProfileForm({super.key});
@@ -47,6 +47,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       child: Column(
         children: [
           TextFormField(
+            keyboardType: TextInputType.name,
             onSaved: (newValue) => firstName = newValue,
             onChanged: (value) {
               
@@ -140,8 +141,9 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
-                Navigator.pushNamed(context, InitScreen.routeName);
-                //addUserInfo(address,firstName,lastName,phoneNumber);
+                _formKey.currentState!.save();
+                
+                addUserInfo(address,firstName,lastName,phoneNumber);
                 
               }
             },
@@ -154,11 +156,13 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
 
   Future addUserInfo(String? address,String? firstName,String? lastName,String? phoneNumber) async {
     try {
-      await FirebaseFirestore.instance.collection('users').add({
+      String? nama = firstName.toString() + " " + lastName.toString();
+      await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).set({
         'address':address.toString(),
-        'name':firstName.toString() + lastName.toString(),
+        'name':firstName.toString() + " " + lastName.toString(),
         'phone':int.parse(phoneNumber.toString())
       });
+      FirebaseAuth.instance.currentUser?.updateDisplayName(nama);
       showToast(message: "User info has been added");
       Navigator.pushNamed(context, InitScreen.routeName);
     }on FirebaseAuthException catch (e){

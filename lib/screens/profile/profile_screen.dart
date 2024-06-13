@@ -1,14 +1,20 @@
+
 import 'package:flutter/material.dart';
 import 'package:shop_app/constants.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'components/profile_menu.dart';
 import 'components/profile_pic.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class ProfileScreen extends StatelessWidget {
   static String routeName = "/profile";
-
+  
   const ProfileScreen({super.key});
+  
+  
   @override
+  
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
@@ -21,6 +27,8 @@ class ProfileScreen extends StatelessWidget {
         child: Column(
           children: [
             const ProfilePic(),
+            const SizedBox(height: 20),
+            Text(FirebaseAuth.instance.currentUser?.displayName ?? "",style: TextStyle(color: Colors.white)),
             const SizedBox(height: 20),
             ProfileMenu(
               text: "My Account",
@@ -52,4 +60,9 @@ class ProfileScreen extends StatelessWidget {
       ),
     );
   }
+
+
+
+  
+
 }

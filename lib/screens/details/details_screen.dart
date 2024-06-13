@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop_app/constants.dart';
 import 'package:shop_app/screens/cart/cart_screen.dart';
+import 'package:shop_app/screens/details/components/color_dots.dart';
 
 import '../../models/Product.dart';
-import 'components/color_dots.dart';
+
 import 'components/product_description.dart';
 import 'components/product_images.dart';
 import 'components/top_rounded_container.dart';
