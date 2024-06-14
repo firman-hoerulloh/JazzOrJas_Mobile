@@ -91,12 +91,22 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
             onChanged: (value) {
               if (value.isNotEmpty) {
                 removeError(error: kPhoneNumberNullError);
+              }else if (int.tryParse(value) != null){
+                removeError(error: kPhoneIntError);
+              }else if (value.length >= 10 && value.length <= 13){
+                removeError(error: kPhoneNumberDigitError);
               }
               return;
             },
             validator: (value) {
               if (value!.isEmpty) {
                 addError(error: kPhoneNumberNullError);
+                return "";
+              }else if (int.tryParse(value) == null){
+                addError(error: kPhoneIntError);
+                return "";
+              }else if (value.length < 10 || value.length > 13){
+                addError(error: kPhoneNumberDigitError);
                 return "";
               }
               return null;

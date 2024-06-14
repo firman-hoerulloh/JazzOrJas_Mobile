@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:shop_app/constants.dart';
 import 'package:shop_app/screens/favorite/favorite_screen.dart';
 import 'package:shop_app/screens/home/home_screen.dart';
@@ -9,9 +10,9 @@ const Color inActiveIconColor = Color.fromARGB(255, 15, 6, 6);
 
 class InitScreen extends StatefulWidget {
   const InitScreen({super.key});
-
+  
   static String routeName = "/";
-
+  
   @override
   State<InitScreen> createState() => _InitScreenState();
 }
@@ -19,12 +20,14 @@ class InitScreen extends StatefulWidget {
 class _InitScreenState extends State<InitScreen> {
   int currentSelectedIndex = 0;
 
+  
+  
   void updateCurrentIndex(int index) {
     setState(() {
       currentSelectedIndex = index;
     });
   }
-
+  
   final pages = [
     const HomeScreen(),
     const FavoriteScreen(),
@@ -36,6 +39,9 @@ class _InitScreenState extends State<InitScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
+    
+    
     return Scaffold(
       body: pages[currentSelectedIndex],
       bottomNavigationBar: BottomNavigationBar(

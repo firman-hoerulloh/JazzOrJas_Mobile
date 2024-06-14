@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shop_app/components/toast.dart';
 import 'package:shop_app/constants.dart';
 import 'package:shop_app/screens/cart/cart_screen.dart';
 import 'package:shop_app/screens/details/components/color_dots.dart';
@@ -107,7 +110,8 @@ class DetailsScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
             child: ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, CartScreen.routeName);
+                //Navigator.pushNamed(context, CartScreen.routeName);
+                addToCart(product);
               },
               child: const Text("Add To Cart"),
             ),
@@ -115,6 +119,12 @@ class DetailsScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+  void addToCart(Product product) async{
+    // Get a reference to the Firestore database
+    await FirebaseFirestore.instance.collection(FirebaseAuth.instance.currentUser?.uid ?? "").add({
+        'item': product.id
+      });
   }
 }
 

@@ -31,6 +31,8 @@ const String kShortPassError = "Password is too short";
 const String kMatchPassError = "Passwords don't match";
 const String kNamelNullError = "Please Enter your name";
 const String kPhoneNumberNullError = "Please Enter your phone number";
+const String kPhoneIntError = "Please enter a valid phone number";
+const String kPhoneNumberDigitError = "'Please enter an integer with 10-13 digits'";
 const String kAddressNullError = "Please Enter your address";
 
 final otpInputDecoration = InputDecoration(

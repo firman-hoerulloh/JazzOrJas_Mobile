@@ -1,7 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
-import 'package:shop_app/components/toast.dart';
+import 'package:shop_app/screens/init_screen.dart';
+
 
 import '../../constants.dart';
 import 'components/complete_profile_form.dart';
@@ -14,8 +14,15 @@ class CompleteProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sign Up'),
-        backgroundColor: kPrimaryColor
+        title: const Text('Profile Info'),
+        backgroundColor: kPrimaryColor,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            
+            Navigator.pushNamed(context, InitScreen.routeName);
+          },
+        ),
       ),
       backgroundColor: Colors.black,
       body: SafeArea(

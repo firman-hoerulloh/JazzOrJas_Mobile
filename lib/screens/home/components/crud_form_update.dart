@@ -9,7 +9,7 @@ import 'package:shop_app/components/toast.dart';
 import 'package:image_picker/image_picker.dart';
 
 
-void showCustomDialog(BuildContext context) {
+void showCustomDialogUpdate(BuildContext context) {
   TextEditingController _descriptionController = TextEditingController();
   TextEditingController _idController = TextEditingController();
   TextEditingController _priceController = TextEditingController();
@@ -75,12 +75,13 @@ void showCustomDialog(BuildContext context) {
 
     if (querySnapshot.docs.isNotEmpty) {
       // At least one document found with id equal to 2
-      showToast(message: 'Item with ID ${_idController.text} already exist');
-    } else {
-      // No document found with id equal to 2
       uploadFile();
       addUserInfo();
-      showToast(message: 'Product added');
+      showToast(message: 'Product updated');
+      
+    } else {
+      // No document found with id equal to 2
+      showToast(message: 'Item with ID ${_idController.text} not exist');
       
       
     }

@@ -25,7 +25,7 @@ class CartCard extends StatelessWidget {
                 color: const Color(0xFFF5F6F9),
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Image.network(cart.product.images[0]),
+              child: Image.network(cart.product.images),
             ),
           ),
         ),
@@ -47,7 +47,7 @@ class CartCard extends StatelessWidget {
                 children: [
                   TextSpan(
                       text: " x${cart.numOfItem}",
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: kPrimaryColor)),
+                      style: Theme.of(context).textTheme.bodyLarge),
                 ],
               ),
             )

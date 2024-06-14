@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shop_app/screens/complete_profile/complete_profile_screen.dart';
+import 'package:shop_app/screens/init_screen.dart';
+import 'package:shop_app/screens/splash/splash_screen.dart';
 import 'components/profile_menu.dart';
 import 'components/profile_pic.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -33,27 +36,16 @@ class ProfileScreen extends StatelessWidget {
             ProfileMenu(
               text: "My Account",
               icon: "assets/icons/User Icon.svg",
-              press: () => {},
+              press: () => {Navigator.pushNamed(context, CompleteProfileScreen.routeName)},
             ),
-            ProfileMenu(
-              text: "Notifications",
-              icon: "assets/icons/Bell.svg",
-              press: () {},
-            ),
-            ProfileMenu(
-              text: "Settings",
-              icon: "assets/icons/Settings.svg",
-              press: () {},
-            ),
-            ProfileMenu(
-              text: "Help Center",
-              icon: "assets/icons/Question mark.svg",
-              press: () {},
-            ),
+
             ProfileMenu(
               text: "Log Out",
               icon: "assets/icons/Log out.svg",
-              press: () {},
+              press: () {
+                FirebaseAuth.instance.signOut();
+                Navigator.pushNamed(context, SplashScreen.routeName);
+              },
             ),
           ],
         ),

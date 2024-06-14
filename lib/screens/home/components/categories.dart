@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shop_app/models/Product.dart';
+
 import 'package:shop_app/screens/home/components/crud_form.dart';
+import 'package:shop_app/screens/home/components/crud_form_update.dart';
+import 'package:shop_app/screens/home/components/crud_form_delete.dart';
 import 'package:shop_app/components/toast.dart';
 
 class Categories extends StatelessWidget {
@@ -24,20 +26,20 @@ class Categories extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CategoryCard(
-            icon: "assets/icons/Flash Icon.svg",
+            icon: "assets/icons/Plus Icon.svg",
             text: "Create",
             
             press: () {showCustomDialog(context);},
           ),
           CategoryCard(
-            icon: "assets/icons/Flash Icon.svg",
+            icon: "assets/icons/remove.svg",
             text: "Delete",
-            press: () {getData();},
+            press: () {showCustomDialogDelete(context);},
           ),
           CategoryCard(
-            icon: "assets/icons/Flash Icon.svg",
+            icon: "assets/icons/update.svg",
             text: "Update",
-            press: () {},
+            press: () {showCustomDialogUpdate(context);},
           ),
         ]
     )
