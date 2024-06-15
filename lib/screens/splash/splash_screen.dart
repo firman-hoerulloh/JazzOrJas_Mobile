@@ -82,11 +82,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       const Spacer(flex: 3),
                       ElevatedButton(
                         onPressed: () {
-                          if (FirebaseAuth.instance.currentUser != null){
-                            Navigator.pushNamed(context, InitScreen.routeName);
-                          }else{
-                            Navigator.pushNamed(context, SignInScreen.routeName);
-                          }
+                          Navigator.pushNamed(context, SignInScreen.routeName);
                           
                         },
                         child: const Text("Continue"),
